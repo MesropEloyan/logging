@@ -1,0 +1,47 @@
+{% block content %}
+<style>
+tbody {
+  font-family: sans-serif;
+  font-size: 14px;
+}
+
+tbody tr {
+  border-bottom: 1px solid #ccc;
+}
+
+tbody td {
+  padding: 5px;
+}
+
+</style>
+<table border="1">
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>User</th>
+      <th>Action</th>
+      <th>Field Name</th>
+      <th>Before Edit</th>
+      <th>After Edit</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% if document.documenthistory_set.exists %}
+      {% for history in document.documenthistory_set.all %}
+        <tr>
+          <td>{{ history.created_at }}</td>
+          <td>{{ history.action }}</td>
+          <td>{{ history.user }}</td>
+          <td>{{ history.field_name }}</td>
+          <td>{{ history.before_edit }}</td>
+          <td>{{ history.after_edit }}</td>
+        </tr>
+      {% endfor %}
+    {% else %}
+      <tr>
+        <td colspan="6">No history available.</td>
+      </tr>
+    {% endif %}
+  </tbody>
+</table>
+{% endblock %}
